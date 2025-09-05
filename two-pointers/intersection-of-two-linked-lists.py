@@ -4,32 +4,20 @@ class ListNode:
         self.val = x
         self.next = None
 
-class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
-
 class Solution:
-    def getIntersectionNode(self, headA, headB):
-        """
-        :type head1, head1: ListNode
-        :rtype: ListNode
-        """
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         if not headA or not headB:
             return None
         
-        ptrA = headA
-        ptrB = headB
+        # 初始化两个指针
+        ptrA, ptrB = headA, headB
         
+        # 遍历直到两个指针相遇
         while ptrA != ptrB:
-            if ptrA:
-                ptrA = ptrA.next
-            else:
-                ptrA = headB
-                
-            if ptrB:
-                ptrB = ptrB.next
-            else:
-                ptrB = headA
-                
+            # 如果ptrA到达末尾，切换到headB
+            ptrA = ptrA.next if ptrA else headB
+            # 如果ptrB到达末尾，切换到headA
+            ptrB = ptrB.next if ptrB else headA
+        
+        # 返回相遇点（要么是交点，要么是None）
         return ptrA
