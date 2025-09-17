@@ -5,6 +5,7 @@ WITH t AS (
         temperature,
         LAG(temperature, 1) OVER (ORDER BY id) AS prev_temp
     FROM weather
+    order by recordDate
 )
 SELECT id
 FROM t
