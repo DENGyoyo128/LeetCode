@@ -3,7 +3,7 @@ class Solution:
         n = len(nums)
         dp_max = [0] * n
         dp_min = [0] * n
-        dp_max[0] = dp_min[0] = ans = nums[0]
+        dp_max[0] = dp_min[0]=ans = nums[0]
 
         for i in range(1, n):
             x = nums[i]
