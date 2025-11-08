@@ -6,5 +6,5 @@ from (
     left join employees e2 on e1.reports_to=e2.employee_id
     WHERE e1.reports_to IS NOT NULL
     group by e1.reports_to) as T1
-
+order by employee_id asc
 
