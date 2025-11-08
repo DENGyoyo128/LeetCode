@@ -1,6 +1,5 @@
 class Solution:
     def numSquares(self, n: int) -> int:
-        
         # 预生成所有 <= n 的平方数
         squares = []
         k = 1
@@ -9,7 +8,8 @@ class Solution:
             k += 1
 
         # dp[x]: 和为 x 的最少平方数个数
-        dp = [0] + [10**9] * n
+        dp = [float('inf')] * (n + 1)
+        dp[0] = 0
         for x in range(1, n + 1):
             for s in squares:
                 if s > x:
