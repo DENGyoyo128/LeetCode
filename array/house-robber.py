@@ -5,6 +5,6 @@ class Solution:
         dp[0]=ans=nums[0]
         for i in range(1,n):
             a=dp[i-2]
-            dp[i]=max(a,a+nums[i])
+            dp[i]=max(dp[i-1],a+nums[i])
             ans=max(ans,dp[i])
         return ans
