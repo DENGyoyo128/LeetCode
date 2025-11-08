@@ -4,6 +4,7 @@ class Solution:
         dp=[0]*n
         dp[0]=ans=nums[0]
         for i in range(1,n):
-            dp[i]=dp[i-2]+nums[i]
+            a=dp[i-2]
+            dp[i]=max(a,a+nums[i])
             ans=max(ans,dp[i])
         return ans
