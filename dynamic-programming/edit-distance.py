@@ -18,4 +18,4 @@ class Solution:
                         dp[i][j-1] + 1,    # 插入 word2[j-1]
                         dp[i-1][j-1] + 1   # 替换为 word2[j-1]
                     )
-        return dp[m][n]
+        return dp[-1][-1]
