@@ -1,32 +1,27 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        n = len(nums)
-
-        # 找到第一个 >= target 的位置
-        def lower_bound():
-            l, r = 0, n
-            while l < r:
-                m = (l + r) // 2
-                if nums[m] >= target:
-                    r = m
+        def binary_search(nums, target, is_searching_left):
+            left = 0
+            right = len(nums) - 1
+            idx = -1
+            
+            while left <= right:
+                mid = (left + right) // 2
+                
+                if nums[mid] > target:
+                    right = mid - 1
+                elif nums[mid] < target:
+                    left = mid + 1
                 else:
-                    l = m + 1
-            return l
-
-        # 找到第一个 > target 的位置
-        def upper_bound():
-            l, r = 0, n
-            while l < r:
-                m = (l + r) // 2
-                if nums[m] > target:
-                    r = m
-                else:
-                    l = m + 1
-            return l
-
-        L = lower_bound()
-        if L == n or nums[L] != target:
-            return [-1, -1]
-        R = upper_bound() - 1
-
-        return [L, R]
+                    idx = mid
+                    if is_searching_left:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+            
+            return idx
+        
+        left = binary_search(nums, target, True)
+        right = binary_search(nums, target, False)
+        
+        return [left, right]
