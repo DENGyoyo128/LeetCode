@@ -12,4 +12,4 @@ def find_customers(customers: pd.DataFrame, orders: pd.DataFrame) -> pd.DataFram
 
     # 4) 重命名列为 "Customers"
     never_df = never_df.rename(columns={'name': 'Customers'})
-    return merged
+    return never_df
