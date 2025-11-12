@@ -4,7 +4,7 @@ def second_highest_salary(employee: pd.DataFrame) -> pd.DataFrame:
     employee.sort_values('salary').drop_duplicates()
     second=employee.iloc[1:2]
     out=second[['salary']].rename(columns={'salary':'SecondHighestSalary'})
-    if out.empty:
+    if out.empty  or len(employee)==1:
         out = pd.DataFrame({'SecondHighestSalary': [None]})
     return out[['SecondHighestSalary']]
     # s = employee['salary'].drop_duplicates().nlargest(2)
