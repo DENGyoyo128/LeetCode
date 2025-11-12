@@ -1,8 +1,11 @@
 import pandas as pd
 
 def second_highest_salary(employee: pd.DataFrame) -> pd.DataFrame:
-    employee.sort_values('salary').drop_duplicates(subset=['salary'])
-    second=employee.iloc[1:2]
+    dedup_sorted = (employee
+                    .drop_duplicates(subset=['salary'])
+                    .sort_values('salary', ascending=False))
+    # 2) 在“去重后且降序”的结果上取第二行
+    second = dedup_sorted.iloc[1:2]
     out=second[['salary']].rename(columns={'salary':'SecondHighestSalary'})
     if out.empty :
         out = pd.DataFrame({'SecondHighestSalary': [None]})
