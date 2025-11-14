@@ -9,25 +9,42 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return None
+        # if not head:
+        #     return None
         
-        # 1) 旧节点 -> 新节点 的映射
-        mp = {}
+        # # 1) 旧节点 -> 新节点 的映射
+        # mp = {}
         
+        # cur = head
+        # while cur:
+        #     mp[cur] = Node(cur.val)
+        #     cur = cur.next
+        
+        # # 2) 补 next 和 random
+        # cur = head
+        # while cur:
+        #     new_node = mp[cur]
+        #     new_node.next = mp.get(cur.next)      # cur.next 可能是 None
+        #     new_node.random = mp.get(cur.random)  # cur.random 可能是 None
+        #     cur = cur.next
+        
+        # # 3) 返回新链表的头
+        # return mp[head]
+        
+
+        hash = {None:None}
         cur = head
-        while cur:
-            mp[cur] = Node(cur.val)
-            cur = cur.next
         
-        # 2) 补 next 和 random
+        while cur:
+            hash[cur] = Node(cur.val)
+            cur = cur.next
+            
         cur = head
+        
         while cur:
-            new_node = mp[cur]
-            new_node.next = mp.get(cur.next)      # cur.next 可能是 None
-            new_node.random = mp.get(cur.random)  # cur.random 可能是 None
+            copy = hash[cur]
+            copy.next = hash[cur.next]
+            copy.random = hash[cur.random]
             cur = cur.next
-        
-        # 3) 返回新链表的头
-        return mp[head]
-        
+            
+        return hash[head]
