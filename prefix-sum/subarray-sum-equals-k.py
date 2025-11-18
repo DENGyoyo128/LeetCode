@@ -17,7 +17,8 @@ class Solution:
         records[0]=1
         for num in nums:
             pre_sum+=num
-            ans+=records[pre_sum-k]
+            if pre_sum-k in records:
+                ans+=records[pre_sum-k]
             records[pre_sum]+=1
         return ans
 
