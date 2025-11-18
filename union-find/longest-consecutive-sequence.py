@@ -9,5 +9,5 @@ class Solution:
                 while num+1 in nums_set:
                     num+=1
                     conse_length+=1
-                length=max(cur_length,conse_length)
+                    length=max(cur_length,conse_length)
         return length
