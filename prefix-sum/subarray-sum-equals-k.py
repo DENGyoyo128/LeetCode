@@ -1,15 +1,14 @@
-                
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        count = 0
-        prefix_sum = 0
-        freq = defaultdict(int)
-        freq[0] = 1   # 前缀和等于 k 时也能统计到
-
+        nums.sort()
+        ans=0
+        records=defaultdict(int)
         for num in nums:
-            prefix_sum += num
-            # 如果 prefix_sum - k 在 freq 里，说明存在子数组和为 k
-            count += freq[prefix_sum - k]
-            freq[prefix_sum] += 1
-        
-        return count
+            if num==k:
+                ans+=1
+            if k-num in records:
+                ans+=1
+            records[num]+=1
+        return ans
+
+#这道题难点我觉得是多个怎么办
