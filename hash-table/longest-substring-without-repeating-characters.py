@@ -2,7 +2,7 @@ class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         last_pos={}
         left=0
-        max_len=1
+        max_len=0
         for right,ch in enumerate(s):
 
             if ch in last_pos and last_pos[ch] >= left:
@@ -10,7 +10,7 @@ class Solution:
 
             last_pos[ch]=right
 
-            max_len=max(max_len,left-right+1)
+            max_len=max(max_len,right-left+1)
         
         return max_len
         
