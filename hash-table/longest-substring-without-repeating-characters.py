@@ -1,15 +1,17 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-#用哈希表记录字符的出现次数
-        ans=0
-        cnt=Counter()#hashmap
+        last_pos={}
         left=0
-        for  right,c in enumerate(s):
-            cnt[c]+=1
-            while cnt[c]>1:
-                cnt[s[left]]-=1
-                left+=1
-            ans=max(ans,right-left+1)
-        return ans
+        max_len=1
+        for right,ch in enumerate(s):
+
+            if ch in last_pos and last_pos[ch] >= left:
+                left=last_pos[ch]+1
+
+            last_pos[ch]=right
+
+            max_len=max(max_len,left-right+1)
         
+        return max_len
         
+
