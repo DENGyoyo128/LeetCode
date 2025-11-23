@@ -15,5 +15,5 @@ class Solution:
                 cur = prev + cur * k           # 当前解码重复并拼回
             else:
                 cur.append(ch)                 # 普通字母
-        return ''.join(cur)
+        return "".join(cur)
         
