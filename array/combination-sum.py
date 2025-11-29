@@ -1,20 +1,19 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        candidates.sort()
-        res = []
-        path = []
-
-        def dfs(start: int, remain: int):
-            if remain == 0:
+        res=[]
+        candidates.sort()#方便剪枝
+        def backtrack(start:int,remain:int,path: List[int]):
+            if remain==0:
                 res.append(path.copy())
                 return
-            for i in range(start, len(candidates)):
-                x = candidates[i]
-                if x > remain:      # 剪枝：后面更大，直接停
+            
+            for i in range(start,len(candidates)):
+                nums=candidates[i]
+                if nums>remain:
                     break
-                path.append(x)
-                dfs(i, remain - x)  # 可重复使用同一元素 → 仍从 i 开始
+                path.append(nums)
+                backtrack(i,remain-nums,path)
                 path.pop()
-
-        dfs(0, target)
+        backtrack(0,target,[])
         return res
+            
