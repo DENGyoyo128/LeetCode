@@ -1,33 +1,32 @@
 class Solution:
-    def __init__(self):
-        self.letterMap = [
-            "",     # 0
-            "",     # 1
-            "abc",  # 2
-            "def",  # 3
-            "ghi",  # 4
-            "jkl",  # 5
-            "mno",  # 6
-            "pqrs", # 7
-            "tuv",  # 8
-            "wxyz"  # 9
-        ]
-        self.result = []
-        self.s = ""
-    
-    def backtracking(self, digits, index):
-        if index == len(digits):
-            self.result.append(self.s)
-            return
-        digit = int(digits[index])    # 将索引处的数字转换为整数
-        letters = self.letterMap[digit]    # 获取对应的字符集
-        for i in range(len(letters)):
-            self.s += letters[i]    # 处理字符
-            self.backtracking(digits, index + 1)    # 递归调用，注意索引加1，处理下一个数字
-            self.s = self.s[:-1]    # 回溯，删除最后添加的字符
-    
-    def letterCombinations(self, digits):
-        if len(digits) == 0:
-            return self.result
-        self.backtracking(digits, 0)
-        return self.result
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+
+        phone = {
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz",
+        }
+
+        res = []
+
+        def backtrack(index: int, path: str):
+            # index 表示当前处理到第几位 digit
+            if index == len(digits):
+                # 所有位置都选完了，path 是一个完整的组合
+                res.append(path)
+                return
+
+            cur_digit = digits[index]
+            for ch in phone[cur_digit]:
+                # 选当前 digit 对应的一个字母，进入下一位
+                backtrack(index + 1, path + ch)
+
+        backtrack(0, "")
+        return res
