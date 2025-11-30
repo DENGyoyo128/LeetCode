@@ -5,8 +5,7 @@ class ListNode:
 
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
-        if not head or not head.next:
-            return False
+      
         
         slow = head  # 慢指针，每次走一步
         fast = head  # 快指针，每次走两步
