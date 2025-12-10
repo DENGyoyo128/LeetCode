@@ -17,7 +17,7 @@ class Solution:
         dfs(root)
 
         for i in range(1,len(res)):
-            if res[i]<res[i-1]:
+            if res[i]<=res[i-1]:
                 return False
         
         return True
