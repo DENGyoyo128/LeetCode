@@ -6,20 +6,12 @@
 #         self.right = right
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
-        if not root:
-            return True
-        st = [] #这里改成了栈
-        st.append(root.left)
-        st.append(root.right)
-        while st:
-            rightNode = st.pop()
-            leftNode = st.pop()
-            if not leftNode and not rightNode:
-                continue
-            if not leftNode or not rightNode or leftNode.val != rightNode.val:
+        def judge(t1,t2):
+            if not t1  and not t2 :
+                return True
+            if not t1 or not t2:
                 return False
-            st.append(leftNode.left)
-            st.append(rightNode.right)
-            st.append(leftNode.right)
-            st.append(rightNode.left)
-        return True
+            if t1.val !=t2.val:
+                return False
+            return judge(t1.left,t2.right) and judge(t1.right,t2.left)
+        return judge(root.left,root.right)
