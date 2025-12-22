@@ -8,17 +8,17 @@
 
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        self.diameter = 0
-
-        def getdepth(node):
+        self.ans = 0
+        def depth(node):
             if not node:
-                return 0
-            left = getdepth(node.left)
-            right = getdepth(node.right)
-            # 更新直径：经过当前节点的路径长度
-            self.diameter = max(self.diameter, left + right)
-            # 返回深度
-            return 1 + max(left, right)
+                return -1  # 按“边数”计深度：空节点 -1，叶子节点 0
+            left = depth(node.left)
+            right = depth(node.right)
 
-        getdepth(root)
-        return self.diameter
+            # 经过 node 的最长路径边数
+            self.ans = max(self.ans, left + right + 2)
+
+            # 返回 node 往下的最大深度（边数）
+            return 1 + max(left, right)
+        depth(root)
+        return self.ans
