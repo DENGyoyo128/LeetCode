@@ -18,7 +18,7 @@ class Solution:
             self.count += 1
             if self.count == k:
                 self.result = node.val
-                return
+                
             
             inorder(node.right)
         
