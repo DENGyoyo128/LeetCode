@@ -6,26 +6,20 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        if not preorder:
-            return None
+        pos = {v: i for i, v in enumerate(inorder)}  # 哈希：值 -> 在 inorder 的下标
+        self.pre_i = 0  # 当前用到 preorder 的第几个元素（指针）
 
-        # 前序遍历的第一个就是根节点
-        root_val = preorder[0]
-        root = TreeNode(root_val)
+        def build(in_l, in_r):
+            if in_l > in_r:
+                return None
 
-        # 在中序遍历中找到根的位置
-        separator_idx = inorder.index(root_val)
+            root_val = preorder[self.pre_i]  # 前序当前第一个就是根
+            self.pre_i += 1
+            root = TreeNode(root_val)
 
-        # 切割中序：左子树 / 右子树
-        inorder_left = inorder[:separator_idx]
-        inorder_right = inorder[separator_idx + 1:]
+            mid = pos[root_val]              # O(1) 找根在 inorder 的位置
+            root.left = build(in_l, mid - 1)
+            root.right = build(mid + 1, in_r)
+            return root
 
-        # 切割前序：根节点之后，按左子树长度划分
-        preorder_left = preorder[1: 1 + len(inorder_left)]
-        preorder_right = preorder[1 + len(inorder_left):]
-
-        # 递归构建
-        root.left = self.buildTree(preorder_left, inorder_left)
-        root.right = self.buildTree(preorder_right, inorder_right)
-
-        return root
+        return build(0, len(inorder) - 1)
