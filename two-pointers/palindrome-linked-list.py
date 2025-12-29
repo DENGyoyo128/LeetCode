@@ -5,8 +5,6 @@ class ListNode:
 
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        if not head or not head.next:
-            return True
         
         # 步骤1：使用快慢指针找到中点
         slow, fast = head, head
