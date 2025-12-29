@@ -6,7 +6,7 @@ class Solution:
         m, n = len(grid), len(grid[0])
 
         def dfs(r: int, c: int) -> None:
-            if r < 0 or r >= m or c < 0 or c >= n or grid[r][c] != '1':
+            if r >= m or  c >= n or grid[r][c] != '1':
                 return
             grid[r][c] = '0'  # 标记为已访问（淹掉）
             dfs(r + 1, c)
