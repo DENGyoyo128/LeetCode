@@ -19,11 +19,14 @@ class Solution:
             # 记录当前前缀和
             cnt[cur_sum] += 1
 
+            
+
             # 继续往下
             res += dfs(node.left, cur_sum)
             res += dfs(node.right, cur_sum)
-
+            
             # 回溯：撤销当前节点的贡献
             cnt[cur_sum] -= 1
+         
             return res
         return dfs(root, 0)
