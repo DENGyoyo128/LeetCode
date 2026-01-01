@@ -6,23 +6,26 @@ class Solution:
         n = len(nums)
         if n <= 1:
             return
-        
-        # 1. 从右往左找第一个下降的位置 i：nums[i] < nums[i+1]
+
+        # 1) 找拐点 i：从右往左第一个 nums[i] < nums[i+1]
         i = n - 2
         while i >= 0 and nums[i] >= nums[i + 1]:
             i -= 1
-        
-        # 2. 如果找到了 i， 从右往左找第一个 > nums[i] 的 j，交换
-        if i >= 0:
-            j = n - 1
-            while j >= 0 and nums[j] <= nums[i]:
-                j -= 1
-            nums[i], nums[j] = nums[j], nums[i]
-        
-        # 3. 把 i+1 到末尾这一段反转成升序
-        left, right = i + 1, n - 1
-        while left < right:
-            nums[left], nums[right] = nums[right], nums[left]
-            left += 1
-            right -= 1
-        
+
+        # 如果没找到，说明是最大排列，直接反转成最小
+        if i < 0:
+            nums.reverse()
+            return
+
+        # 2) 从右往左找第一个 nums[j] > nums[i]，交换
+        j = n - 1
+        while nums[j] <= nums[i]:
+            j -= 1
+        nums[i], nums[j] = nums[j], nums[i]
+
+        # 3) 反转 i+1 到末尾，让后缀变成最小（升序）
+        l, r = i + 1, n - 1
+        while l < r:
+            nums[l], nums[r] = nums[r], nums[l]
+            l += 1
+            r -= 1
